@@ -1,0 +1,14 @@
+spring:
+  datasource:
+    driver-class-name: oracle.jdbc.OracleDriver
+    username: sys as sysdba
+    password: Zny2620183
+    url: jdbc:oracle:thin:@localhost:1521:orcl
+  messages:
+    basename: messages
+    cache-second: 3600
+    encoding: UTF-8
+
+mybatis:
+  config-location: classpath:mybatis-config.xml
+  mapper-locations: classpath:mapper/*.xml
