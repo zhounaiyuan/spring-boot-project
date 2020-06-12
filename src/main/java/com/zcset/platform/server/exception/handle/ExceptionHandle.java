@@ -1,4 +1,4 @@
-package com.zcset.platform.server.exception.controller;
+package com.zcset.platform.server.exception.handle;
 
 import com.zcset.platform.server.exception.entity.Result;
 import com.zcset.platform.server.exception.enumeration.ExceptionEnum;
