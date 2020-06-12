@@ -1,4 +1,4 @@
-package com.example.demo.exception.entity;
+package com.zcset.platform.server.exception.entity;
 
 import lombok.Data;
 @Data

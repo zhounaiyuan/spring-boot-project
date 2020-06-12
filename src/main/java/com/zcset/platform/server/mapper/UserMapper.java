@@ -1,8 +1,7 @@
-package com.example.demo.mapper;
+package com.zcset.platform.server.mapper;
 
-import com.example.demo.entity.User;
-import com.example.demo.entity.UserExample;
-import org.apache.ibatis.annotations.Mapper;
+import com.zcset.platform.server.entity.User;
+import com.zcset.platform.server.entity.UserExample;
 import org.apache.ibatis.annotations.Param;
 
 import java.util.List;

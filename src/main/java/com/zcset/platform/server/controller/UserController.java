@@ -1,11 +1,11 @@
-package com.example.demo.controller;
+package com.zcset.platform.server.controller;
 
-import com.example.demo.entity.User;
-import com.example.demo.exception.controller.ExceptionHandle;
-import com.example.demo.exception.entity.Result;
-import com.example.demo.exception.enumeration.ExceptionEnum;
-import com.example.demo.exception.util.ResultUtil;
-import com.example.demo.service.UserService;
+import com.zcset.platform.server.entity.User;
+import com.zcset.platform.server.exception.controller.ExceptionHandle;
+import com.zcset.platform.server.exception.entity.Result;
+import com.zcset.platform.server.exception.enumeration.ExceptionEnum;
+import com.zcset.platform.server.exception.util.ResultUtil;
+import com.zcset.platform.server.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 

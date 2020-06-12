@@ -1,4 +1,4 @@
-package com.example.demo.exception.enumeration;
+package com.zcset.platform.server.exception.enumeration;
 import lombok.Getter;
 
 @Getter

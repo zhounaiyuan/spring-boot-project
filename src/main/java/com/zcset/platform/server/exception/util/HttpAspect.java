@@ -1,7 +1,7 @@
-package com.example.demo.exception.util;
+package com.zcset.platform.server.exception.util;
 
-import com.example.demo.exception.controller.ExceptionHandle;
-import com.example.demo.exception.entity.Result;
+import com.zcset.platform.server.exception.controller.ExceptionHandle;
+import com.zcset.platform.server.exception.entity.Result;
 import lombok.extern.slf4j.Slf4j;
 import org.aspectj.lang.JoinPoint;
 import org.aspectj.lang.ProceedingJoinPoint;

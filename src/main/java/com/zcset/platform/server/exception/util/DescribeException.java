@@ -1,6 +1,6 @@
-package com.example.demo.exception.util;
+package com.zcset.platform.server.exception.util;
 
-import com.example.demo.exception.enumeration.ExceptionEnum;
+import com.zcset.platform.server.exception.enumeration.ExceptionEnum;
 
 public class DescribeException extends RuntimeException {
 

@@ -1,12 +1,11 @@
-package com.example.demo.service;
+package com.zcset.platform.server.service;
 
-import com.example.demo.entity.User;
-import com.example.demo.entity.UserExample;
-import com.example.demo.mapper.UserMapper;
+import com.zcset.platform.server.entity.User;
+import com.zcset.platform.server.entity.UserExample;
+import com.zcset.platform.server.mapper.UserMapper;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 

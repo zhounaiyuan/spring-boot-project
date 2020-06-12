@@ -1,9 +1,9 @@
-package com.example.demo.exception.controller;
+package com.zcset.platform.server.exception.controller;
 
-import com.example.demo.exception.entity.Result;
-import com.example.demo.exception.enumeration.ExceptionEnum;
-import com.example.demo.exception.util.DescribeException;
-import com.example.demo.exception.util.ResultUtil;
+import com.zcset.platform.server.exception.entity.Result;
+import com.zcset.platform.server.exception.enumeration.ExceptionEnum;
+import com.zcset.platform.server.exception.util.DescribeException;
+import com.zcset.platform.server.exception.util.ResultUtil;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;

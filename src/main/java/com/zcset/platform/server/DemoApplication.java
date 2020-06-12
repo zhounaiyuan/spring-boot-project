@@ -1,4 +1,4 @@
-package com.example.demo;
+package com.zcset.platform.server;
 
 import org.mybatis.spring.annotation.MapperScan;
 import org.springframework.boot.SpringApplication;
@@ -6,7 +6,7 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.transaction.annotation.EnableTransactionManagement;
 
 @SpringBootApplication
-@MapperScan(basePackages = "com.example.demo.mapper")
+@MapperScan(basePackages = "com.zcset.platform.server.mapper")
 @EnableTransactionManagement
 public class DemoApplication {
 
