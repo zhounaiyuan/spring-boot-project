@@ -85,7 +85,7 @@ public class UserController {
     public Result user() {
         Result result=new Result();
         try {
-            List<User> object = userService.getUserById((short) 1);
+            User object = userService.getUserById((short) 1);
             result = ResultUtil.success(object);
         }catch (Exception e){
             result =  exceptionHandle.exceptionGet(e);

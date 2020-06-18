@@ -96,13 +96,18 @@ public class UserServiceImpl implements UserService {
 
     //orc查询
     @Override
-    public List<User> getUserById(short id) {
+    public List<User> getUserByName(String name) {
         UserExample userExample = new UserExample();
         userExample.createCriteria();
         //log.info("");
         return userMapper.selectByExample(userExample);
 
     }
+    @Override
+    public User getUserById(short id) {
+        return userMapper.selectByPrimaryKey((Long)(long)id);
+    }
+
     //orc添加
     //@Transactional
     @Override

@@ -17,7 +17,8 @@ public interface UserService {
     Page<User> findBySecordCode(String secordCode);
     Page<User> query(Long key);
 
-    public List<User> getUserById(short id);
+    public List<User> getUserByName(String name);
+    public User getUserById(short id);
     public int insertUser(User user);
     public int deleteUser(User user);
     public int updateUser(User user);
