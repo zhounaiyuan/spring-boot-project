@@ -1,42 +1,24 @@
 package com.zcset.platform.server.service;
 
 import com.zcset.platform.server.entity.User;
-import com.zcset.platform.server.entity.UserExample;
-import com.zcset.platform.server.mapper.UserMapper;
-import lombok.extern.slf4j.Slf4j;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Service;
+import org.springframework.data.domain.Page;
 
+import java.util.Iterator;
 import java.util.List;
 
-@Service
-@Slf4j
-public class UserService {
+public interface UserService {
+    void createIndex();
+    void deleteIndex(String index);
+    void save(User docBean);
+    void saveAll(List<User> list);
+    Iterator<User> findAll();
+    Page<User> findByContent(String content);
+    Page<User> findByFirstCode(String firstCode);
+    Page<User> findBySecordCode(String secordCode);
+    Page<User> query(Long key);
 
-    @Autowired
-    private UserMapper userMapper;
-
-    //查询
-    public List<User> getUserById(short id) {
-        UserExample userExample = new UserExample();
-        userExample.createCriteria();
-        //log.info("");
-        return userMapper.selectByExample(userExample);
-
-    }
-    //添加
-    //@Transactional
-    public int insertUser(User user) {
-        return userMapper.insert(user);
-    }
-    //删除
-    //@Transactional
-    public int deleteUser(User user) {
-        return userMapper.deleteByPrimaryKey(user.getUserid());
-    }
-    //修改
-    //@Transactional
-    public int updateUser(User user) {
-        return userMapper.updateByPrimaryKey(user);
-    }
+    public List<User> getUserById(short id);
+    public int insertUser(User user);
+    public int deleteUser(User user);
+    public int updateUser(User user);
 }

@@ -2,15 +2,18 @@ package com.zcset.platform.server.mapper;
 
 import com.zcset.platform.server.entity.User;
 import com.zcset.platform.server.entity.UserExample;
-import org.apache.ibatis.annotations.Param;
-
 import java.util.List;
-public interface UserMapper {
+
+import org.apache.ibatis.annotations.Mapper;
+import org.apache.ibatis.annotations.Param;
+import org.springframework.data.elasticsearch.repository.ElasticsearchRepository;
+@Mapper
+public interface UserMapper{
     long countByExample(UserExample example);
 
     int deleteByExample(UserExample example);
 
-    int deleteByPrimaryKey(Short userid);
+    int deleteByPrimaryKey(Long userid);
 
     int insert(User record);
 
@@ -18,7 +21,7 @@ public interface UserMapper {
 
     List<User> selectByExample(UserExample example);
 
-    User selectByPrimaryKey(Short userid);
+    User selectByPrimaryKey(Long userid);
 
     int updateByExampleSelective(@Param("record") User record, @Param("example") UserExample example);
 

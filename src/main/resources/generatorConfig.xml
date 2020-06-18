@@ -16,20 +16,20 @@
                         password="Zny2620183"/>
 
         <!-- 生成model实体类文件位置 -->
-        <javaModelGenerator targetPackage="com.example.demo.entity"
+        <javaModelGenerator targetPackage="com.zcset.platform.server.entity"
                             targetProject="src\main\java">
             <property name="enableSubPackages" value="false"/>
             <property name="trimStrings" value="false"/>
         </javaModelGenerator>
 
         <!-- 生成mapper.xml配置文件位置 -->
-        <sqlMapGenerator targetPackage="com.example.demo.mapper"
+        <sqlMapGenerator targetPackage="com.zcset.platform.server.mapper"
                          targetProject="src\main\java">
             <property name="enableSubPackages" value="false"/>
         </sqlMapGenerator>
 
         <!-- 生成mapper接口文件位置 -->
-        <javaClientGenerator targetPackage="com.example.demo.mapper"
+        <javaClientGenerator targetPackage="com.zcset.platform.server.mapper"
                              targetProject="src\main\java" type="XMLMAPPER">
             <property name="enableSubPackages" value="false"/>
         </javaClientGenerator>

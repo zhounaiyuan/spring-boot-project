@@ -1,33 +1,68 @@
 package com.zcset.platform.server.controller;
 
+import com.zcset.platform.server.dao.UserDao;
 import com.zcset.platform.server.entity.User;
 import com.zcset.platform.server.exception.handle.ExceptionHandle;
 import com.zcset.platform.server.exception.entity.Result;
 import com.zcset.platform.server.exception.enumeration.ExceptionEnum;
-import com.zcset.platform.server.exception.util.DescribeException;
 import com.zcset.platform.server.exception.util.ResultUtil;
 import com.zcset.platform.server.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
+import javax.annotation.Resource;
 import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import java.util.ArrayList;
+import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 
 @RestController
 @RequestMapping(value = "/boot")
 public class UserController {
-    @Autowired
+    @Resource
     private ExceptionHandle exceptionHandle;
 
-    @Autowired
+    @Resource(name="userservice")
     private UserService userService;
 
 //    public UserController() {
 //        userService=new UserService();
 //    }
+
+
+    @GetMapping("/init")
+    public Result init(){
+        Result result=new Result();
+        try {
+            //userService.createIndex();
+            List<User> list =new ArrayList<User>();
+            list.add(new User(8L,193L,"迪迦"));
+            list.add(new User(9L,210L,"泰罗"));
+            list.add(new User(10L,257L,"赛文"));
+            userService.saveAll(list);
+            result = ResultUtil.success(list);
+        }catch (Exception e)
+        {
+            result =  exceptionHandle.exceptionGet(e);
+        }
+        return result;
+    }
+
+    @GetMapping("/all")
+    public Result all(){
+        Result result=new Result();
+        try {
+            result = ResultUtil.success(userService.findAll());
+        }catch (Exception e)
+        {
+            result =  exceptionHandle.exceptionGet(e);
+        }
+        return result;
+    }
+
 
     @RequestMapping(value = "/getResult", method = RequestMethod.POST)
     public Result getResult(@RequestBody Map<String, Object> rec) {
@@ -64,7 +99,7 @@ public class UserController {
         Result result=new Result();
         try {
             User user = new User();
-            user.setUserid((short) 2);
+            user.setUserid((long) 2);
             user.setUsername("赵四");
             user.setEnabled((short) 1);
             user.setUsernumber((short) 12341);
@@ -86,7 +121,7 @@ public class UserController {
         Result result=new Result();
         try {
             User user = new User();
-            user.setUserid((short) 2);
+            user.setUserid((long) 2);
             user.setUsername("赵四");
             user.setEnabled((short) 1);
             user.setUsernumber((short) 12341);
@@ -107,7 +142,7 @@ public class UserController {
         Result result=new Result();
         try {
             User user = new User();
-            user.setUserid((short) 2);
+            user.setUserid((long) 2);
             user.setUsername("王五");
             user.setEnabled((short) 1);
             user.setUsernumber((short) 12341);

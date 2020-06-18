@@ -8,6 +8,13 @@ spring:
     basename: messages
     cache-second: 3600
     encoding: UTF-8
+  elasticsearch:
+#      cluster-name: DESKTOP-Q3DL1NG
+#      cluster-nodes: 127.0.0.1:9200
+#      repositories:
+#        enabled: true
+      rest:
+        uris: http://localhost:9200
 
 mybatis:
   config-location: classpath:mybatis-config.xml
