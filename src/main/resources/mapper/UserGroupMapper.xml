@@ -1,19 +1,19 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="com.zcset.platform.server.dao.db.UserMapper">
-    <resultMap id="BaseResultMap" type="com.zcset.platform.server.entity.db.UserDB">
-        <id column="USERID" jdbcType="DECIMAL" property="userId"/>
-        <result column="USERNAME" jdbcType="VARCHAR" property="userName"/>
-        <result column="CONTACT" jdbcType="VARCHAR" property="contact"/>
-        <result column="QTIP" jdbcType="VARCHAR" property="qtip"/>
-        <result column="IMAGESRC" jdbcType="VARCHAR" property="imageSrc"/>
-        <result column="PASSWORD" jdbcType="VARCHAR" property="password"/>
+<mapper namespace="com.zcset.platform.server.dao.db.UserGroupMapper">
+    <resultMap id="BaseResultMap" type="com.zcset.platform.server.entity.db.UserGroupDB">
+        <id column="USERGROUPID" jdbcType="DECIMAL" property="userGroupId"/>
+        <result column="USERGROUPNAME" jdbcType="VARCHAR" property="userGroupName"/>
+        <result column="PARENTID" jdbcType="DECIMAL" property="parentId"/>
         <result column="DISPLAYNAME" jdbcType="VARCHAR" property="displayName"/>
         <result column="INNERNAME" jdbcType="VARCHAR" property="innerName"/>
+        <result column="QTIP" jdbcType="VARCHAR" property="qtip"/>
+        <result column="IMAGESRC" jdbcType="VARCHAR" property="imageSrc"/>
+        <result column="ORDERNUMBER" jdbcType="DECIMAL" property="orderNumber"/>
         <result column="ENABLED" jdbcType="DECIMAL" property="enabled"/>
         <result column="TYPE" jdbcType="VARCHAR" property="type"/>
         <result column="CREATETIME" jdbcType="TIMESTAMP" property="createTime"/>
-        <result column="USERNUMBER" jdbcType="DECIMAL" property="userNumber"/>
+        <result column="USERGROUPNUMBER" jdbcType="DECIMAL" property="userGroupNumber"/>
         <result column="STATUS" jdbcType="VARCHAR" property="status"/>
     </resultMap>
     <sql id="Example_Where_Clause">
@@ -77,10 +77,10 @@
         </where>
     </sql>
     <sql id="Base_Column_List">
-    USERID, USERNAME, CONTACT, QTIP, IMAGESRC, PASSWORD, DISPLAYNAME, INNERNAME, ENABLED, 
-    TYPE, CREATETIME, USERNUMBER, STATUS
+    USERGROUPID, USERGROUPNAME, PARENTID, DISPLAYNAME, INNERNAME, QTIP, IMAGESRC, ORDERNUMBER, 
+    ENABLED, TYPE, CREATETIME, USERGROUPNUMBER, STATUS
   </sql>
-    <select id="selectByExample" parameterType="com.zcset.platform.server.entity.db.UserExample"
+    <select id="selectByExample" parameterType="com.zcset.platform.server.entity.db.UserGroupExample"
             resultMap="BaseResultMap">
         select
         <if test="distinct">
@@ -88,7 +88,7 @@
         </if>
         'true' as QUERYID,
         <include refid="Base_Column_List"/>
-        from USERTABLE
+        from USERGROUPTABLE
         <if test="_parameter != null">
             <include refid="Example_Where_Clause"/>
         </if>
@@ -96,45 +96,51 @@
             order by ${orderByClause}
         </if>
     </select>
-    <select id="selectByPrimaryKey" parameterType="java.lang.Long" resultMap="BaseResultMap">
+    <select id="selectByPrimaryKey" parameterType="java.lang.Short" resultMap="BaseResultMap">
         select
         <include refid="Base_Column_List"/>
-        from USERTABLE
-        where USERID = #{userId,jdbcType=DECIMAL}
+        from USERGROUPTABLE
+        where USERGROUPID = #{userGroupId,jdbcType=DECIMAL}
     </select>
-    <delete id="deleteByPrimaryKey" parameterType="java.lang.Long">
-    delete from USERTABLE
-    where USERID = #{userId,jdbcType=DECIMAL}
+    <delete id="deleteByPrimaryKey" parameterType="java.lang.Short">
+    delete from USERGROUPTABLE
+    where USERGROUPID = #{userGroupId,jdbcType=DECIMAL}
   </delete>
-    <delete id="deleteByExample" parameterType="com.zcset.platform.server.entity.db.UserExample">
-        delete from USERTABLE
+    <delete id="deleteByExample" parameterType="com.zcset.platform.server.entity.db.UserGroupExample">
+        delete from USERGROUPTABLE
         <if test="_parameter != null">
             <include refid="Example_Where_Clause"/>
         </if>
     </delete>
-    <insert id="insert" parameterType="com.zcset.platform.server.entity.db.UserDB">
-    insert into USERTABLE (USERID, USERNAME, CONTACT, 
-      QTIP, IMAGESRC, PASSWORD, 
-      DISPLAYNAME, INNERNAME, ENABLED, 
-      TYPE, CREATETIME, USERNUMBER, 
+    <insert id="insert" parameterType="com.zcset.platform.server.entity.db.UserGroupDB">
+    insert into USERGROUPTABLE (USERGROUPID, USERGROUPNAME, PARENTID, 
+      DISPLAYNAME, INNERNAME, QTIP, 
+      IMAGESRC, ORDERNUMBER, ENABLED, 
+      TYPE, CREATETIME, USERGROUPNUMBER, 
       STATUS)
-    values (#{userId,jdbcType=DECIMAL}, #{userName,jdbcType=VARCHAR}, #{contact,jdbcType=VARCHAR}, 
-      #{qtip,jdbcType=VARCHAR}, #{imageSrc,jdbcType=VARCHAR}, #{password,jdbcType=VARCHAR}, 
-      #{displayName,jdbcType=VARCHAR}, #{innerName,jdbcType=VARCHAR}, #{enabled,jdbcType=DECIMAL}, 
-      #{type,jdbcType=VARCHAR}, #{createTime,jdbcType=TIMESTAMP}, #{userNumber,jdbcType=DECIMAL}, 
+    values (#{userGroupId,jdbcType=DECIMAL}, #{userGroupName,jdbcType=VARCHAR}, #{parentId,jdbcType=DECIMAL}, 
+      #{displayName,jdbcType=VARCHAR}, #{innerName,jdbcType=VARCHAR}, #{qtip,jdbcType=VARCHAR}, 
+      #{imageSrc,jdbcType=VARCHAR}, #{orderNumber,jdbcType=DECIMAL}, #{enabled,jdbcType=DECIMAL}, 
+      #{type,jdbcType=VARCHAR}, #{createTime,jdbcType=TIMESTAMP}, #{userGroupNumber,jdbcType=DECIMAL}, 
       #{status,jdbcType=VARCHAR})
   </insert>
-    <insert id="insertSelective" parameterType="com.zcset.platform.server.entity.db.UserDB">
-        insert into USERTABLE
+    <insert id="insertSelective" parameterType="com.zcset.platform.server.entity.db.UserGroupDB">
+        insert into USERGROUPTABLE
         <trim prefix="(" suffix=")" suffixOverrides=",">
-            <if test="userId != null">
-                USERID,
+            <if test="userGroupId != null">
+                USERGROUPID,
             </if>
-            <if test="userName != null">
-                USERNAME,
+            <if test="userGroupName != null">
+                USERGROUPNAME,
             </if>
-            <if test="contact != null">
-                CONTACT,
+            <if test="parentId != null">
+                PARENTID,
+            </if>
+            <if test="displayName != null">
+                DISPLAYNAME,
+            </if>
+            <if test="innerName != null">
+                INNERNAME,
             </if>
             <if test="qtip != null">
                 QTIP,
@@ -142,14 +148,8 @@
             <if test="imageSrc != null">
                 IMAGESRC,
             </if>
-            <if test="password != null">
-                PASSWORD,
-            </if>
-            <if test="displayName != null">
-                DISPLAYNAME,
-            </if>
-            <if test="innerName != null">
-                INNERNAME,
+            <if test="orderNumber != null">
+                ORDERNUMBER,
             </if>
             <if test="enabled != null">
                 ENABLED,
@@ -160,22 +160,28 @@
             <if test="createTime != null">
                 CREATETIME,
             </if>
-            <if test="userNumber != null">
-                USERNUMBER,
+            <if test="userGroupNumber != null">
+                USERGROUPNUMBER,
             </if>
             <if test="status != null">
                 STATUS,
             </if>
         </trim>
         <trim prefix="values (" suffix=")" suffixOverrides=",">
-            <if test="userId != null">
-                #{userId,jdbcType=DECIMAL},
+            <if test="userGroupId != null">
+                #{userGroupId,jdbcType=DECIMAL},
             </if>
-            <if test="userName != null">
-                #{userName,jdbcType=VARCHAR},
+            <if test="userGroupName != null">
+                #{userGroupName,jdbcType=VARCHAR},
             </if>
-            <if test="contact != null">
-                #{contact,jdbcType=VARCHAR},
+            <if test="parentId != null">
+                #{parentId,jdbcType=DECIMAL},
+            </if>
+            <if test="displayName != null">
+                #{displayName,jdbcType=VARCHAR},
+            </if>
+            <if test="innerName != null">
+                #{innerName,jdbcType=VARCHAR},
             </if>
             <if test="qtip != null">
                 #{qtip,jdbcType=VARCHAR},
@@ -183,14 +189,8 @@
             <if test="imageSrc != null">
                 #{imageSrc,jdbcType=VARCHAR},
             </if>
-            <if test="password != null">
-                #{password,jdbcType=VARCHAR},
-            </if>
-            <if test="displayName != null">
-                #{displayName,jdbcType=VARCHAR},
-            </if>
-            <if test="innerName != null">
-                #{innerName,jdbcType=VARCHAR},
+            <if test="orderNumber != null">
+                #{orderNumber,jdbcType=DECIMAL},
             </if>
             <if test="enabled != null">
                 #{enabled,jdbcType=DECIMAL},
@@ -201,32 +201,38 @@
             <if test="createTime != null">
                 #{createTime,jdbcType=TIMESTAMP},
             </if>
-            <if test="userNumber != null">
-                #{userNumber,jdbcType=DECIMAL},
+            <if test="userGroupNumber != null">
+                #{userGroupNumber,jdbcType=DECIMAL},
             </if>
             <if test="status != null">
                 #{status,jdbcType=VARCHAR},
             </if>
         </trim>
     </insert>
-    <select id="countByExample" parameterType="com.zcset.platform.server.entity.db.UserExample"
+    <select id="countByExample" parameterType="com.zcset.platform.server.entity.db.UserGroupExample"
             resultType="java.lang.Long">
-        select count(*) from USERTABLE
+        select count(*) from USERGROUPTABLE
         <if test="_parameter != null">
             <include refid="Example_Where_Clause"/>
         </if>
     </select>
     <update id="updateByExampleSelective" parameterType="map">
-        update USERTABLE
+        update USERGROUPTABLE
         <set>
-            <if test="record.userId != null">
-                USERID = #{record.userId,jdbcType=DECIMAL},
+            <if test="record.userGroupId != null">
+                USERGROUPID = #{record.userGroupId,jdbcType=DECIMAL},
             </if>
-            <if test="record.userName != null">
-                USERNAME = #{record.userName,jdbcType=VARCHAR},
+            <if test="record.userGroupName != null">
+                USERGROUPNAME = #{record.userGroupName,jdbcType=VARCHAR},
             </if>
-            <if test="record.contact != null">
-                CONTACT = #{record.contact,jdbcType=VARCHAR},
+            <if test="record.parentId != null">
+                PARENTID = #{record.parentId,jdbcType=DECIMAL},
+            </if>
+            <if test="record.displayName != null">
+                DISPLAYNAME = #{record.displayName,jdbcType=VARCHAR},
+            </if>
+            <if test="record.innerName != null">
+                INNERNAME = #{record.innerName,jdbcType=VARCHAR},
             </if>
             <if test="record.qtip != null">
                 QTIP = #{record.qtip,jdbcType=VARCHAR},
@@ -234,14 +240,8 @@
             <if test="record.imageSrc != null">
                 IMAGESRC = #{record.imageSrc,jdbcType=VARCHAR},
             </if>
-            <if test="record.password != null">
-                PASSWORD = #{record.password,jdbcType=VARCHAR},
-            </if>
-            <if test="record.displayName != null">
-                DISPLAYNAME = #{record.displayName,jdbcType=VARCHAR},
-            </if>
-            <if test="record.innerName != null">
-                INNERNAME = #{record.innerName,jdbcType=VARCHAR},
+            <if test="record.orderNumber != null">
+                ORDERNUMBER = #{record.orderNumber,jdbcType=DECIMAL},
             </if>
             <if test="record.enabled != null">
                 ENABLED = #{record.enabled,jdbcType=DECIMAL},
@@ -252,8 +252,8 @@
             <if test="record.createTime != null">
                 CREATETIME = #{record.createTime,jdbcType=TIMESTAMP},
             </if>
-            <if test="record.userNumber != null">
-                USERNUMBER = #{record.userNumber,jdbcType=DECIMAL},
+            <if test="record.userGroupNumber != null">
+                USERGROUPNUMBER = #{record.userGroupNumber,jdbcType=DECIMAL},
             </if>
             <if test="record.status != null">
                 STATUS = #{record.status,jdbcType=VARCHAR},
@@ -264,32 +264,38 @@
         </if>
     </update>
     <update id="updateByExample" parameterType="map">
-        update USERTABLE
-        set USERID = #{record.userId,jdbcType=DECIMAL},
-        USERNAME = #{record.userName,jdbcType=VARCHAR},
-        CONTACT = #{record.contact,jdbcType=VARCHAR},
-        QTIP = #{record.qtip,jdbcType=VARCHAR},
-        IMAGESRC = #{record.imageSrc,jdbcType=VARCHAR},
-        PASSWORD = #{record.password,jdbcType=VARCHAR},
+        update USERGROUPTABLE
+        set USERGROUPID = #{record.userGroupId,jdbcType=DECIMAL},
+        USERGROUPNAME = #{record.userGroupName,jdbcType=VARCHAR},
+        PARENTID = #{record.parentId,jdbcType=DECIMAL},
         DISPLAYNAME = #{record.displayName,jdbcType=VARCHAR},
         INNERNAME = #{record.innerName,jdbcType=VARCHAR},
+        QTIP = #{record.qtip,jdbcType=VARCHAR},
+        IMAGESRC = #{record.imageSrc,jdbcType=VARCHAR},
+        ORDERNUMBER = #{record.orderNumber,jdbcType=DECIMAL},
         ENABLED = #{record.enabled,jdbcType=DECIMAL},
         TYPE = #{record.type,jdbcType=VARCHAR},
         CREATETIME = #{record.createTime,jdbcType=TIMESTAMP},
-        USERNUMBER = #{record.userNumber,jdbcType=DECIMAL},
+        USERGROUPNUMBER = #{record.userGroupNumber,jdbcType=DECIMAL},
         STATUS = #{record.status,jdbcType=VARCHAR}
         <if test="_parameter != null">
             <include refid="Update_By_Example_Where_Clause"/>
         </if>
     </update>
-    <update id="updateByPrimaryKeySelective" parameterType="com.zcset.platform.server.entity.db.UserDB">
-        update USERTABLE
+    <update id="updateByPrimaryKeySelective" parameterType="com.zcset.platform.server.entity.db.UserGroupDB">
+        update USERGROUPTABLE
         <set>
-            <if test="userName != null">
-                USERNAME = #{userName,jdbcType=VARCHAR},
+            <if test="userGroupName != null">
+                USERGROUPNAME = #{userGroupName,jdbcType=VARCHAR},
             </if>
-            <if test="contact != null">
-                CONTACT = #{contact,jdbcType=VARCHAR},
+            <if test="parentId != null">
+                PARENTID = #{parentId,jdbcType=DECIMAL},
+            </if>
+            <if test="displayName != null">
+                DISPLAYNAME = #{displayName,jdbcType=VARCHAR},
+            </if>
+            <if test="innerName != null">
+                INNERNAME = #{innerName,jdbcType=VARCHAR},
             </if>
             <if test="qtip != null">
                 QTIP = #{qtip,jdbcType=VARCHAR},
@@ -297,14 +303,8 @@
             <if test="imageSrc != null">
                 IMAGESRC = #{imageSrc,jdbcType=VARCHAR},
             </if>
-            <if test="password != null">
-                PASSWORD = #{password,jdbcType=VARCHAR},
-            </if>
-            <if test="displayName != null">
-                DISPLAYNAME = #{displayName,jdbcType=VARCHAR},
-            </if>
-            <if test="innerName != null">
-                INNERNAME = #{innerName,jdbcType=VARCHAR},
+            <if test="orderNumber != null">
+                ORDERNUMBER = #{orderNumber,jdbcType=DECIMAL},
             </if>
             <if test="enabled != null">
                 ENABLED = #{enabled,jdbcType=DECIMAL},
@@ -315,29 +315,29 @@
             <if test="createTime != null">
                 CREATETIME = #{createTime,jdbcType=TIMESTAMP},
             </if>
-            <if test="userNumber != null">
-                USERNUMBER = #{userNumber,jdbcType=DECIMAL},
+            <if test="userGroupNumber != null">
+                USERGROUPNUMBER = #{userGroupNumber,jdbcType=DECIMAL},
             </if>
             <if test="status != null">
                 STATUS = #{status,jdbcType=VARCHAR},
             </if>
         </set>
-        where USERID = #{userId,jdbcType=DECIMAL}
+        where USERGROUPID = #{userGroupId,jdbcType=DECIMAL}
     </update>
-    <update id="updateByPrimaryKey" parameterType="com.zcset.platform.server.entity.db.UserDB">
-    update USERTABLE
-    set USERNAME = #{userName,jdbcType=VARCHAR},
-      CONTACT = #{contact,jdbcType=VARCHAR},
-      QTIP = #{qtip,jdbcType=VARCHAR},
-      IMAGESRC = #{imageSrc,jdbcType=VARCHAR},
-      PASSWORD = #{password,jdbcType=VARCHAR},
+    <update id="updateByPrimaryKey" parameterType="com.zcset.platform.server.entity.db.UserGroupDB">
+    update USERGROUPTABLE
+    set USERGROUPNAME = #{userGroupName,jdbcType=VARCHAR},
+      PARENTID = #{parentId,jdbcType=DECIMAL},
       DISPLAYNAME = #{displayName,jdbcType=VARCHAR},
       INNERNAME = #{innerName,jdbcType=VARCHAR},
+      QTIP = #{qtip,jdbcType=VARCHAR},
+      IMAGESRC = #{imageSrc,jdbcType=VARCHAR},
+      ORDERNUMBER = #{orderNumber,jdbcType=DECIMAL},
       ENABLED = #{enabled,jdbcType=DECIMAL},
       TYPE = #{type,jdbcType=VARCHAR},
       CREATETIME = #{createTime,jdbcType=TIMESTAMP},
-      USERNUMBER = #{userNumber,jdbcType=DECIMAL},
+      USERGROUPNUMBER = #{userGroupNumber,jdbcType=DECIMAL},
       STATUS = #{status,jdbcType=VARCHAR}
-    where USERID = #{userId,jdbcType=DECIMAL}
+    where USERGROUPID = #{userGroupId,jdbcType=DECIMAL}
   </update>
 </mapper>

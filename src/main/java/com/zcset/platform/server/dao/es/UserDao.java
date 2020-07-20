@@ -1,22 +1,18 @@
-package com.zcset.platform.server.dao;
+package com.zcset.platform.server.dao.es;
 
-import com.zcset.platform.server.entity.User;
+import com.zcset.platform.server.entity.es.UserES;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.elasticsearch.annotations.Query;
 import org.springframework.data.elasticsearch.repository.ElasticsearchRepository;
-import org.springframework.data.elasticsearch.repository.config.EnableElasticsearchRepositories;
 
 @Configuration
-public interface UserDao extends ElasticsearchRepository<User, Long> {
+public interface UserDao extends ElasticsearchRepository<UserES, String> {
 
     @Query("{\"bool\" : {\"must\" : {\"field\" : {\"firstCode.keyword\" : \"?\"}}}}")
-    Page<User> findByUserId(Long userid, Pageable pageable);
+    Page<UserES> findByUserId(Long userid, Pageable pageable);
 
     @Query("{\"bool\" : {\"must\" : {\"field\" : {\"secordCode.keyword\" : \"?\"}}}}")
-    Page<User> findByUserName(String username, Pageable pageable);
-
-
-
+    Page<UserES> findByUserName(String username, Pageable pageable);
 }

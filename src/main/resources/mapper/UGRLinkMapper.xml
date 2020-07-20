@@ -1,0 +1,186 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.zcset.platform.server.dao.db.UGRLinkMapper">
+    <resultMap id="BaseResultMap" type="com.zcset.platform.server.entity.db.UGRLinkDB">
+        <id column="UGRID" jdbcType="DECIMAL" property="ugrId"/>
+        <result column="USERGROUPID" jdbcType="DECIMAL" property="userGroupId"/>
+        <result column="ROLEID" jdbcType="DECIMAL" property="roleId"/>
+    </resultMap>
+    <sql id="Example_Where_Clause">
+        <where>
+            <foreach collection="oredCriteria" item="criteria" separator="or">
+                <if test="criteria.valid">
+                    <trim prefix="(" prefixOverrides="and" suffix=")">
+                        <foreach collection="criteria.criteria" item="criterion">
+                            <choose>
+                                <when test="criterion.noValue">
+                                    and ${criterion.condition}
+                                </when>
+                                <when test="criterion.singleValue">
+                                    and ${criterion.condition} #{criterion.value}
+                                </when>
+                                <when test="criterion.betweenValue">
+                                    and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                                </when>
+                                <when test="criterion.listValue">
+                                    and ${criterion.condition}
+                                    <foreach close=")" collection="criterion.value" item="listItem" open="("
+                                             separator=",">
+                                        #{listItem}
+                                    </foreach>
+                                </when>
+                            </choose>
+                        </foreach>
+                    </trim>
+                </if>
+            </foreach>
+        </where>
+    </sql>
+    <sql id="Update_By_Example_Where_Clause">
+        <where>
+            <foreach collection="example.oredCriteria" item="criteria" separator="or">
+                <if test="criteria.valid">
+                    <trim prefix="(" prefixOverrides="and" suffix=")">
+                        <foreach collection="criteria.criteria" item="criterion">
+                            <choose>
+                                <when test="criterion.noValue">
+                                    and ${criterion.condition}
+                                </when>
+                                <when test="criterion.singleValue">
+                                    and ${criterion.condition} #{criterion.value}
+                                </when>
+                                <when test="criterion.betweenValue">
+                                    and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                                </when>
+                                <when test="criterion.listValue">
+                                    and ${criterion.condition}
+                                    <foreach close=")" collection="criterion.value" item="listItem" open="("
+                                             separator=",">
+                                        #{listItem}
+                                    </foreach>
+                                </when>
+                            </choose>
+                        </foreach>
+                    </trim>
+                </if>
+            </foreach>
+        </where>
+    </sql>
+    <sql id="Base_Column_List">
+    UGRID, USERGROUPID, ROLEID
+  </sql>
+    <select id="selectByExample" parameterType="com.zcset.platform.server.entity.db.UGRLinkExample"
+            resultMap="BaseResultMap">
+        select
+        <if test="distinct">
+            distinct
+        </if>
+        'true' as QUERYID,
+        <include refid="Base_Column_List"/>
+        from USERGROUPROLETABLE
+        <if test="_parameter != null">
+            <include refid="Example_Where_Clause"/>
+        </if>
+        <if test="orderByClause != null">
+            order by ${orderByClause}
+        </if>
+    </select>
+    <select id="selectByPrimaryKey" parameterType="java.lang.Short" resultMap="BaseResultMap">
+        select
+        <include refid="Base_Column_List"/>
+        from USERGROUPROLETABLE
+        where UGRID = #{ugrId,jdbcType=DECIMAL}
+    </select>
+    <delete id="deleteByPrimaryKey" parameterType="java.lang.Short">
+    delete from USERGROUPROLETABLE
+    where UGRID = #{ugrId,jdbcType=DECIMAL}
+  </delete>
+    <delete id="deleteByExample" parameterType="com.zcset.platform.server.entity.db.UGRLinkExample">
+        delete from USERGROUPROLETABLE
+        <if test="_parameter != null">
+            <include refid="Example_Where_Clause"/>
+        </if>
+    </delete>
+    <insert id="insert" parameterType="com.zcset.platform.server.entity.db.UGRLinkDB">
+    insert into USERGROUPROLETABLE (UGRID, USERGROUPID, ROLEID
+      )
+    values (#{ugrId,jdbcType=DECIMAL}, #{userGroupId,jdbcType=DECIMAL}, #{roleId,jdbcType=DECIMAL}
+      )
+  </insert>
+    <insert id="insertSelective" parameterType="com.zcset.platform.server.entity.db.UGRLinkDB">
+        insert into USERGROUPROLETABLE
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="ugrId != null">
+                UGRID,
+            </if>
+            <if test="userGroupId != null">
+                USERGROUPID,
+            </if>
+            <if test="roleId != null">
+                ROLEID,
+            </if>
+        </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="ugrId != null">
+                #{ugrId,jdbcType=DECIMAL},
+            </if>
+            <if test="userGroupId != null">
+                #{userGroupId,jdbcType=DECIMAL},
+            </if>
+            <if test="roleId != null">
+                #{roleId,jdbcType=DECIMAL},
+            </if>
+        </trim>
+    </insert>
+    <select id="countByExample" parameterType="com.zcset.platform.server.entity.db.UGRLinkExample"
+            resultType="java.lang.Long">
+        select count(*) from USERGROUPROLETABLE
+        <if test="_parameter != null">
+            <include refid="Example_Where_Clause"/>
+        </if>
+    </select>
+    <update id="updateByExampleSelective" parameterType="map">
+        update USERGROUPROLETABLE
+        <set>
+            <if test="record.ugrId != null">
+                UGRID = #{record.ugrId,jdbcType=DECIMAL},
+            </if>
+            <if test="record.userGroupId != null">
+                USERGROUPID = #{record.userGroupId,jdbcType=DECIMAL},
+            </if>
+            <if test="record.roleId != null">
+                ROLEID = #{record.roleId,jdbcType=DECIMAL},
+            </if>
+        </set>
+        <if test="_parameter != null">
+            <include refid="Update_By_Example_Where_Clause"/>
+        </if>
+    </update>
+    <update id="updateByExample" parameterType="map">
+        update USERGROUPROLETABLE
+        set UGRID = #{record.ugrId,jdbcType=DECIMAL},
+        USERGROUPID = #{record.userGroupId,jdbcType=DECIMAL},
+        ROLEID = #{record.roleId,jdbcType=DECIMAL}
+        <if test="_parameter != null">
+            <include refid="Update_By_Example_Where_Clause"/>
+        </if>
+    </update>
+    <update id="updateByPrimaryKeySelective" parameterType="com.zcset.platform.server.entity.db.UGRLinkDB">
+        update USERGROUPROLETABLE
+        <set>
+            <if test="userGroupId != null">
+                USERGROUPID = #{userGroupId,jdbcType=DECIMAL},
+            </if>
+            <if test="roleId != null">
+                ROLEID = #{roleId,jdbcType=DECIMAL},
+            </if>
+        </set>
+        where UGRID = #{ugrId,jdbcType=DECIMAL}
+    </update>
+    <update id="updateByPrimaryKey" parameterType="com.zcset.platform.server.entity.db.UGRLinkDB">
+    update USERGROUPROLETABLE
+    set USERGROUPID = #{userGroupId,jdbcType=DECIMAL},
+      ROLEID = #{roleId,jdbcType=DECIMAL}
+    where UGRID = #{ugrId,jdbcType=DECIMAL}
+  </update>
+</mapper>

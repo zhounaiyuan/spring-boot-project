@@ -16,20 +16,20 @@
                         password="Zny2620183"/>
 
         <!-- 生成model实体类文件位置 -->
-        <javaModelGenerator targetPackage="com.zcset.platform.server.entity"
+        <javaModelGenerator targetPackage="com.zcset.platform.server.entity.db"
                             targetProject="src\main\java">
             <property name="enableSubPackages" value="false"/>
             <property name="trimStrings" value="false"/>
         </javaModelGenerator>
 
         <!-- 生成mapper.xml配置文件位置 -->
-        <sqlMapGenerator targetPackage="com.zcset.platform.server.mapper"
+        <sqlMapGenerator targetPackage="mapper"
                          targetProject="src\main\java">
             <property name="enableSubPackages" value="false"/>
         </sqlMapGenerator>
 
         <!-- 生成mapper接口文件位置 -->
-        <javaClientGenerator targetPackage="com.zcset.platform.server.mapper"
+        <javaClientGenerator targetPackage="com.zcset.platform.server.dao.db"
                              targetProject="src\main\java" type="XMLMAPPER">
             <property name="enableSubPackages" value="false"/>
         </javaClientGenerator>
@@ -46,5 +46,31 @@
                enableDeleteByExample="true" enableSelectByExample="true"
                selectByExampleQueryId="true" >
         </table>
+        <table tableName="USERGROUPTABLE" domainObjectName="UserGroup"
+               enableCountByExample="true" enableUpdateByExample="true"
+               enableDeleteByExample="true" enableSelectByExample="true"
+               selectByExampleQueryId="true" >
+        </table>
+        <table tableName="ROLETABLE" domainObjectName="Role"
+               enableCountByExample="true" enableUpdateByExample="true"
+               enableDeleteByExample="true" enableSelectByExample="true"
+               selectByExampleQueryId="true" >
+        </table>
+        <table tableName="USERUSERGROUPTABLE" domainObjectName="UUGLink"
+               enableCountByExample="true" enableUpdateByExample="true"
+               enableDeleteByExample="true" enableSelectByExample="true"
+               selectByExampleQueryId="true" >
+        </table>
+        <table tableName="USERROLETABLE" domainObjectName="URLink"
+               enableCountByExample="true" enableUpdateByExample="true"
+               enableDeleteByExample="true" enableSelectByExample="true"
+               selectByExampleQueryId="true" >
+        </table>
+        <table tableName="USERGROUPROLETABLE" domainObjectName="UGRLink"
+               enableCountByExample="true" enableUpdateByExample="true"
+               enableDeleteByExample="true" enableSelectByExample="true"
+               selectByExampleQueryId="true" >
+        </table>
+
     </context>
 </generatorConfiguration>

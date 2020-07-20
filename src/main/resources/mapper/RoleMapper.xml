@@ -1,19 +1,17 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="com.zcset.platform.server.dao.db.UserMapper">
-    <resultMap id="BaseResultMap" type="com.zcset.platform.server.entity.db.UserDB">
-        <id column="USERID" jdbcType="DECIMAL" property="userId"/>
-        <result column="USERNAME" jdbcType="VARCHAR" property="userName"/>
-        <result column="CONTACT" jdbcType="VARCHAR" property="contact"/>
-        <result column="QTIP" jdbcType="VARCHAR" property="qtip"/>
-        <result column="IMAGESRC" jdbcType="VARCHAR" property="imageSrc"/>
-        <result column="PASSWORD" jdbcType="VARCHAR" property="password"/>
+<mapper namespace="com.zcset.platform.server.dao.db.RoleMapper">
+    <resultMap id="BaseResultMap" type="com.zcset.platform.server.entity.db.RoleDB">
+        <id column="ROLEID" jdbcType="DECIMAL" property="roleId"/>
+        <result column="ROLENAME" jdbcType="VARCHAR" property="roleName"/>
+        <result column="PARENTROLEID" jdbcType="DECIMAL" property="parentRoleId"/>
         <result column="DISPLAYNAME" jdbcType="VARCHAR" property="displayName"/>
         <result column="INNERNAME" jdbcType="VARCHAR" property="innerName"/>
+        <result column="QTIP" jdbcType="VARCHAR" property="qtip"/>
+        <result column="IMAGESRC" jdbcType="VARCHAR" property="imageSrc"/>
         <result column="ENABLED" jdbcType="DECIMAL" property="enabled"/>
         <result column="TYPE" jdbcType="VARCHAR" property="type"/>
         <result column="CREATETIME" jdbcType="TIMESTAMP" property="createTime"/>
-        <result column="USERNUMBER" jdbcType="DECIMAL" property="userNumber"/>
         <result column="STATUS" jdbcType="VARCHAR" property="status"/>
     </resultMap>
     <sql id="Example_Where_Clause">
@@ -77,10 +75,10 @@
         </where>
     </sql>
     <sql id="Base_Column_List">
-    USERID, USERNAME, CONTACT, QTIP, IMAGESRC, PASSWORD, DISPLAYNAME, INNERNAME, ENABLED, 
-    TYPE, CREATETIME, USERNUMBER, STATUS
-  </sql>
-    <select id="selectByExample" parameterType="com.zcset.platform.server.entity.db.UserExample"
+        ROLEID, ROLENAME, PARENTROLEID, DISPLAYNAME, INNERNAME, QTIP, IMAGESRC, ENABLED,
+        TYPE, CREATETIME, STATUS
+    </sql>
+    <select id="selectByExample" parameterType="com.zcset.platform.server.entity.db.RoleExample"
             resultMap="BaseResultMap">
         select
         <if test="distinct">
@@ -88,7 +86,7 @@
         </if>
         'true' as QUERYID,
         <include refid="Base_Column_List"/>
-        from USERTABLE
+        from ROLETABLE
         <if test="_parameter != null">
             <include refid="Example_Where_Clause"/>
         </if>
@@ -99,57 +97,52 @@
     <select id="selectByPrimaryKey" parameterType="java.lang.Long" resultMap="BaseResultMap">
         select
         <include refid="Base_Column_List"/>
-        from USERTABLE
-        where USERID = #{userId,jdbcType=DECIMAL}
+        from ROLETABLE
+        where ROLEID = #{roleId,jdbcType=DECIMAL}
     </select>
     <delete id="deleteByPrimaryKey" parameterType="java.lang.Long">
-    delete from USERTABLE
-    where USERID = #{userId,jdbcType=DECIMAL}
-  </delete>
-    <delete id="deleteByExample" parameterType="com.zcset.platform.server.entity.db.UserExample">
-        delete from USERTABLE
+        delete from ROLETABLE
+        where ROLEID = #{roleId,jdbcType=DECIMAL}
+    </delete>
+    <delete id="deleteByExample" parameterType="com.zcset.platform.server.entity.db.RoleExample">
+        delete from ROLETABLE
         <if test="_parameter != null">
             <include refid="Example_Where_Clause"/>
         </if>
     </delete>
-    <insert id="insert" parameterType="com.zcset.platform.server.entity.db.UserDB">
-    insert into USERTABLE (USERID, USERNAME, CONTACT, 
-      QTIP, IMAGESRC, PASSWORD, 
-      DISPLAYNAME, INNERNAME, ENABLED, 
-      TYPE, CREATETIME, USERNUMBER, 
-      STATUS)
-    values (#{userId,jdbcType=DECIMAL}, #{userName,jdbcType=VARCHAR}, #{contact,jdbcType=VARCHAR}, 
-      #{qtip,jdbcType=VARCHAR}, #{imageSrc,jdbcType=VARCHAR}, #{password,jdbcType=VARCHAR}, 
-      #{displayName,jdbcType=VARCHAR}, #{innerName,jdbcType=VARCHAR}, #{enabled,jdbcType=DECIMAL}, 
-      #{type,jdbcType=VARCHAR}, #{createTime,jdbcType=TIMESTAMP}, #{userNumber,jdbcType=DECIMAL}, 
-      #{status,jdbcType=VARCHAR})
-  </insert>
-    <insert id="insertSelective" parameterType="com.zcset.platform.server.entity.db.UserDB">
-        insert into USERTABLE
+    <insert id="insert" parameterType="com.zcset.platform.server.entity.db.RoleDB">
+        insert into ROLETABLE (ROLEID, ROLENAME, PARENTROLEID,
+        DISPLAYNAME, INNERNAME, QTIP,
+        IMAGESRC, ENABLED, TYPE,
+        CREATETIME, STATUS)
+        values (#{roleId,jdbcType=DECIMAL}, #{roleName,jdbcType=VARCHAR}, #{parentRoleId,jdbcType=DECIMAL},
+        #{displayName,jdbcType=VARCHAR}, #{innerName,jdbcType=VARCHAR}, #{qtip,jdbcType=VARCHAR},
+        #{imageSrc,jdbcType=VARCHAR}, #{enabled,jdbcType=DECIMAL}, #{type,jdbcType=VARCHAR},
+        #{createTime,jdbcType=TIMESTAMP}, #{status,jdbcType=VARCHAR})
+    </insert>
+    <insert id="insertSelective" parameterType="com.zcset.platform.server.entity.db.RoleDB">
+        insert into ROLETABLE
         <trim prefix="(" suffix=")" suffixOverrides=",">
-            <if test="userId != null">
-                USERID,
+            <if test="roleId != null">
+                ROLEID,
             </if>
-            <if test="userName != null">
-                USERNAME,
+            <if test="roleName != null">
+                ROLENAME,
             </if>
-            <if test="contact != null">
-                CONTACT,
-            </if>
-            <if test="qtip != null">
-                QTIP,
-            </if>
-            <if test="imageSrc != null">
-                IMAGESRC,
-            </if>
-            <if test="password != null">
-                PASSWORD,
+            <if test="parentRoleId != null">
+                PARENTROLEID,
             </if>
             <if test="displayName != null">
                 DISPLAYNAME,
             </if>
             <if test="innerName != null">
                 INNERNAME,
+            </if>
+            <if test="qtip != null">
+                QTIP,
+            </if>
+            <if test="imageSrc != null">
+                IMAGESRC,
             </if>
             <if test="enabled != null">
                 ENABLED,
@@ -160,37 +153,31 @@
             <if test="createTime != null">
                 CREATETIME,
             </if>
-            <if test="userNumber != null">
-                USERNUMBER,
-            </if>
             <if test="status != null">
                 STATUS,
             </if>
         </trim>
         <trim prefix="values (" suffix=")" suffixOverrides=",">
-            <if test="userId != null">
-                #{userId,jdbcType=DECIMAL},
+            <if test="roleId != null">
+                #{roleId,jdbcType=DECIMAL},
             </if>
-            <if test="userName != null">
-                #{userName,jdbcType=VARCHAR},
+            <if test="roleName != null">
+                #{roleName,jdbcType=VARCHAR},
             </if>
-            <if test="contact != null">
-                #{contact,jdbcType=VARCHAR},
-            </if>
-            <if test="qtip != null">
-                #{qtip,jdbcType=VARCHAR},
-            </if>
-            <if test="imageSrc != null">
-                #{imageSrc,jdbcType=VARCHAR},
-            </if>
-            <if test="password != null">
-                #{password,jdbcType=VARCHAR},
+            <if test="parentRoleId != null">
+                #{parentRoleId,jdbcType=DECIMAL},
             </if>
             <if test="displayName != null">
                 #{displayName,jdbcType=VARCHAR},
             </if>
             <if test="innerName != null">
                 #{innerName,jdbcType=VARCHAR},
+            </if>
+            <if test="qtip != null">
+                #{qtip,jdbcType=VARCHAR},
+            </if>
+            <if test="imageSrc != null">
+                #{imageSrc,jdbcType=VARCHAR},
             </if>
             <if test="enabled != null">
                 #{enabled,jdbcType=DECIMAL},
@@ -201,47 +188,41 @@
             <if test="createTime != null">
                 #{createTime,jdbcType=TIMESTAMP},
             </if>
-            <if test="userNumber != null">
-                #{userNumber,jdbcType=DECIMAL},
-            </if>
             <if test="status != null">
                 #{status,jdbcType=VARCHAR},
             </if>
         </trim>
     </insert>
-    <select id="countByExample" parameterType="com.zcset.platform.server.entity.db.UserExample"
+    <select id="countByExample" parameterType="com.zcset.platform.server.entity.db.RoleExample"
             resultType="java.lang.Long">
-        select count(*) from USERTABLE
+        select count(*) from ROLETABLE
         <if test="_parameter != null">
             <include refid="Example_Where_Clause"/>
         </if>
     </select>
     <update id="updateByExampleSelective" parameterType="map">
-        update USERTABLE
+        update ROLETABLE
         <set>
-            <if test="record.userId != null">
-                USERID = #{record.userId,jdbcType=DECIMAL},
+            <if test="record.roleId != null">
+                ROLEID = #{record.roleId,jdbcType=DECIMAL},
             </if>
-            <if test="record.userName != null">
-                USERNAME = #{record.userName,jdbcType=VARCHAR},
+            <if test="record.roleName != null">
+                ROLENAME = #{record.roleName,jdbcType=VARCHAR},
             </if>
-            <if test="record.contact != null">
-                CONTACT = #{record.contact,jdbcType=VARCHAR},
-            </if>
-            <if test="record.qtip != null">
-                QTIP = #{record.qtip,jdbcType=VARCHAR},
-            </if>
-            <if test="record.imageSrc != null">
-                IMAGESRC = #{record.imageSrc,jdbcType=VARCHAR},
-            </if>
-            <if test="record.password != null">
-                PASSWORD = #{record.password,jdbcType=VARCHAR},
+            <if test="record.parentRoleId != null">
+                PARENTROLEID = #{record.parentRoleId,jdbcType=DECIMAL},
             </if>
             <if test="record.displayName != null">
                 DISPLAYNAME = #{record.displayName,jdbcType=VARCHAR},
             </if>
             <if test="record.innerName != null">
                 INNERNAME = #{record.innerName,jdbcType=VARCHAR},
+            </if>
+            <if test="record.qtip != null">
+                QTIP = #{record.qtip,jdbcType=VARCHAR},
+            </if>
+            <if test="record.imageSrc != null">
+                IMAGESRC = #{record.imageSrc,jdbcType=VARCHAR},
             </if>
             <if test="record.enabled != null">
                 ENABLED = #{record.enabled,jdbcType=DECIMAL},
@@ -252,9 +233,6 @@
             <if test="record.createTime != null">
                 CREATETIME = #{record.createTime,jdbcType=TIMESTAMP},
             </if>
-            <if test="record.userNumber != null">
-                USERNUMBER = #{record.userNumber,jdbcType=DECIMAL},
-            </if>
             <if test="record.status != null">
                 STATUS = #{record.status,jdbcType=VARCHAR},
             </if>
@@ -264,47 +242,42 @@
         </if>
     </update>
     <update id="updateByExample" parameterType="map">
-        update USERTABLE
-        set USERID = #{record.userId,jdbcType=DECIMAL},
-        USERNAME = #{record.userName,jdbcType=VARCHAR},
-        CONTACT = #{record.contact,jdbcType=VARCHAR},
-        QTIP = #{record.qtip,jdbcType=VARCHAR},
-        IMAGESRC = #{record.imageSrc,jdbcType=VARCHAR},
-        PASSWORD = #{record.password,jdbcType=VARCHAR},
+        update ROLETABLE
+        set ROLEID = #{record.roleId,jdbcType=DECIMAL},
+        ROLENAME = #{record.roleName,jdbcType=VARCHAR},
+        PARENTROLEID = #{record.parentRoleId,jdbcType=DECIMAL},
         DISPLAYNAME = #{record.displayName,jdbcType=VARCHAR},
         INNERNAME = #{record.innerName,jdbcType=VARCHAR},
+        QTIP = #{record.qtip,jdbcType=VARCHAR},
+        IMAGESRC = #{record.imageSrc,jdbcType=VARCHAR},
         ENABLED = #{record.enabled,jdbcType=DECIMAL},
         TYPE = #{record.type,jdbcType=VARCHAR},
         CREATETIME = #{record.createTime,jdbcType=TIMESTAMP},
-        USERNUMBER = #{record.userNumber,jdbcType=DECIMAL},
         STATUS = #{record.status,jdbcType=VARCHAR}
         <if test="_parameter != null">
             <include refid="Update_By_Example_Where_Clause"/>
         </if>
     </update>
-    <update id="updateByPrimaryKeySelective" parameterType="com.zcset.platform.server.entity.db.UserDB">
-        update USERTABLE
+    <update id="updateByPrimaryKeySelective" parameterType="com.zcset.platform.server.entity.db.RoleDB">
+        update ROLETABLE
         <set>
-            <if test="userName != null">
-                USERNAME = #{userName,jdbcType=VARCHAR},
+            <if test="roleName != null">
+                ROLENAME = #{roleName,jdbcType=VARCHAR},
             </if>
-            <if test="contact != null">
-                CONTACT = #{contact,jdbcType=VARCHAR},
-            </if>
-            <if test="qtip != null">
-                QTIP = #{qtip,jdbcType=VARCHAR},
-            </if>
-            <if test="imageSrc != null">
-                IMAGESRC = #{imageSrc,jdbcType=VARCHAR},
-            </if>
-            <if test="password != null">
-                PASSWORD = #{password,jdbcType=VARCHAR},
+            <if test="parentRoleId != null">
+                PARENTROLEID = #{parentRoleId,jdbcType=DECIMAL},
             </if>
             <if test="displayName != null">
                 DISPLAYNAME = #{displayName,jdbcType=VARCHAR},
             </if>
             <if test="innerName != null">
                 INNERNAME = #{innerName,jdbcType=VARCHAR},
+            </if>
+            <if test="qtip != null">
+                QTIP = #{qtip,jdbcType=VARCHAR},
+            </if>
+            <if test="imageSrc != null">
+                IMAGESRC = #{imageSrc,jdbcType=VARCHAR},
             </if>
             <if test="enabled != null">
                 ENABLED = #{enabled,jdbcType=DECIMAL},
@@ -315,29 +288,24 @@
             <if test="createTime != null">
                 CREATETIME = #{createTime,jdbcType=TIMESTAMP},
             </if>
-            <if test="userNumber != null">
-                USERNUMBER = #{userNumber,jdbcType=DECIMAL},
-            </if>
             <if test="status != null">
                 STATUS = #{status,jdbcType=VARCHAR},
             </if>
         </set>
-        where USERID = #{userId,jdbcType=DECIMAL}
+        where ROLEID = #{roleId,jdbcType=DECIMAL}
     </update>
-    <update id="updateByPrimaryKey" parameterType="com.zcset.platform.server.entity.db.UserDB">
-    update USERTABLE
-    set USERNAME = #{userName,jdbcType=VARCHAR},
-      CONTACT = #{contact,jdbcType=VARCHAR},
-      QTIP = #{qtip,jdbcType=VARCHAR},
-      IMAGESRC = #{imageSrc,jdbcType=VARCHAR},
-      PASSWORD = #{password,jdbcType=VARCHAR},
-      DISPLAYNAME = #{displayName,jdbcType=VARCHAR},
-      INNERNAME = #{innerName,jdbcType=VARCHAR},
-      ENABLED = #{enabled,jdbcType=DECIMAL},
-      TYPE = #{type,jdbcType=VARCHAR},
-      CREATETIME = #{createTime,jdbcType=TIMESTAMP},
-      USERNUMBER = #{userNumber,jdbcType=DECIMAL},
-      STATUS = #{status,jdbcType=VARCHAR}
-    where USERID = #{userId,jdbcType=DECIMAL}
-  </update>
+    <update id="updateByPrimaryKey" parameterType="com.zcset.platform.server.entity.db.RoleDB">
+        update ROLETABLE
+        set ROLENAME = #{roleName,jdbcType=VARCHAR},
+        PARENTROLEID = #{parentRoleId,jdbcType=DECIMAL},
+        DISPLAYNAME = #{displayName,jdbcType=VARCHAR},
+        INNERNAME = #{innerName,jdbcType=VARCHAR},
+        QTIP = #{qtip,jdbcType=VARCHAR},
+        IMAGESRC = #{imageSrc,jdbcType=VARCHAR},
+        ENABLED = #{enabled,jdbcType=DECIMAL},
+        TYPE = #{type,jdbcType=VARCHAR},
+        CREATETIME = #{createTime,jdbcType=TIMESTAMP},
+        STATUS = #{status,jdbcType=VARCHAR}
+        where ROLEID = #{roleId,jdbcType=DECIMAL}
+    </update>
 </mapper>

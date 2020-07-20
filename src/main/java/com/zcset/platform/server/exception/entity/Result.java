@@ -1,6 +1,7 @@
 package com.zcset.platform.server.exception.entity;
 
 import lombok.Data;
+
 @Data
 public class Result<object> {
     //error_code 状态值：0 极为成功，其他数值代表失败

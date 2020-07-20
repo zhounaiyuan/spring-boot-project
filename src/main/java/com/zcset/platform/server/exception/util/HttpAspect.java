@@ -1,7 +1,7 @@
 package com.zcset.platform.server.exception.util;
 
-import com.zcset.platform.server.exception.handle.ExceptionHandle;
 import com.zcset.platform.server.exception.entity.Result;
+import com.zcset.platform.server.exception.handle.ExceptionHandle;
 import lombok.extern.slf4j.Slf4j;
 import org.aspectj.lang.JoinPoint;
 import org.aspectj.lang.ProceedingJoinPoint;
@@ -21,9 +21,10 @@ public class HttpAspect {
     @Autowired
     private ExceptionHandle exceptionHandle;
 
-    @Pointcut("execution(public * com.zcset.platform.server.controller.*.*(..))")
+    //@Pointcut("execution(public * com.zcset.platform.server.controller.*.*(..))")
+    @Pointcut("execution(public * com.zcset.platform.server.controller.UserController.init())")
     public void log() {
-
+        return;
     }
 
     @Before("log()")

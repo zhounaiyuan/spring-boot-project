@@ -18,6 +18,7 @@ public class ResultUtil {
         result.setData(object);
         return result;
     }
+
     /**
      * 提供给部分不需要出參的接口
      *
@@ -26,6 +27,7 @@ public class ResultUtil {
     public static Result success() {
         return success(null);
     }
+
     /**
      * 自定义错误信息
      *
@@ -40,6 +42,7 @@ public class ResultUtil {
         result.setData(null);
         return result;
     }
+
     /**
      * 返回异常信息，在已知的范围内
      *
